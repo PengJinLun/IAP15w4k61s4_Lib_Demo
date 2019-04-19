@@ -1,0 +1,9 @@
+!*.c
+!*.h
+!output/*.hex
+output/
+listing/
+*.M51
+*.uvgui.Administrator
+*.uvopt
+*.A51
