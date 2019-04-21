@@ -1,7 +1,6 @@
 #include	"config.h"
 #include 	"demo.h"
-#include 	"temperature_controller.h"
-
+//#include 	"temperature_controller.h"
 
 int main(void)
 {
@@ -29,10 +28,33 @@ int main(void)
 		DS18b20_Demo();
 	#endif
 
-    Tprt_ctlr_Init();
+	#ifdef EEPROMO_DEMO_EN
+		EEPROM_Demo();
+	#endif
+	
+	#ifdef PCA_PWD_DEMO_EN
+	   PCA_Pwm_Demo();
+	#endif
+
+	#ifdef PCA_HPWD_DEMO_EN
+	   PCA_Hpwd_Demo();
+	#endif
+
+	#ifdef PCA_PWM_SOFTTIME_CAPCTURE_DEMO_EN
+		PCA_Pwm_SoftTime_Capcture_Demo();
+	#endif
+
+	#ifdef GUI_DEMO
+		GUI_Demo();
+	#endif
+	
+	#ifdef GUI_FONT_DEMO
+		GUI_Font_Demo();
+	#endif
+
+    //Tprt_ctlr_Init();
 	while(1)
 	{
-			
-		//delay_ms(100);
+	
 	}
 }

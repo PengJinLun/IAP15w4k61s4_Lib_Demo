@@ -5,7 +5,8 @@
 
 
 ******************************************/
-
+extern void time0_isr(void);
+extern void time1_isr(void);
 extern void time2_isr(void);
 
 #include	"timer.h"
@@ -13,7 +14,7 @@ extern void time2_isr(void);
 /********************* Timer0中断函数************************/
 void timer0_int (void) interrupt TIMER0_VECTOR
 {
-
+	 time0_isr();
 }
 
 /********************* Timer1中断函数************************/
