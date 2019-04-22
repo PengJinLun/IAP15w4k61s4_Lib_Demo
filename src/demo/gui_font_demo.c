@@ -59,6 +59,8 @@ void GUI_Font_Demo(void)
   GUI_sprintf_hzstr16x(10,120,"秋水共长天一色。",Red3,White);
   while(1)
 	{
+		    
+
 		P35 = !P35;
 		delay_ms(500);
 	}		

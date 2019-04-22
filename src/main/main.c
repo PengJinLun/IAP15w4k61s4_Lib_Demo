@@ -1,6 +1,6 @@
 #include	"config.h"
 #include 	"demo.h"
-//#include 	"temperature_controller.h"
+#include 	"temperature_controller.h"
 
 int main(void)
 {
@@ -52,7 +52,7 @@ int main(void)
 		GUI_Font_Demo();
 	#endif
 
-    //Tprt_ctlr_Init();
+    Tprt_ctlr_Init();
 	while(1)
 	{
 	
