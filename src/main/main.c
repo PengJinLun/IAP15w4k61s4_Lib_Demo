@@ -2,8 +2,28 @@
 #include 	"demo.h"
 #include 	"temperature_controller.h"
 
+void IO_init(void)
+{
+  P0M0 = 0X00;
+  P0M1 = 0X00;
+
+  P1M0 = 0X00;
+  P1M1 = 0X00;
+
+  P2M0 = 0X00;
+  P2M1 = 0X00;
+
+  P3M0 = 0X00;
+  P3M1 = 0X00;
+
+  P4M0 = 0X00;
+  P4M1 = 0X00;  
+}
+
 int main(void)
 {
+	IO_init();
+
 	#ifdef LED_DEMO_EN
 		Led_Demo();
 	#endif
@@ -13,7 +33,8 @@ int main(void)
 	#endif
 
 	#ifdef ADC_DEMO
-		ADC_Demo();
+		//ADC_Demo();
+		ADC0_Demo();
 	#endif
 
 	#ifdef ADC_BANDGAP_EN
@@ -52,7 +73,15 @@ int main(void)
 		GUI_Font_Demo();
 	#endif
 
-    Tprt_ctlr_Init();
+	#ifdef TPRT_CTLR_EN
+    	Tprt_ctlr_Init();
+	#endif
+
+	//#ifdef NTC_TPRT_SENSOR_EN
+		Ntc_Tprt_Sensor_Init();
+		Ntc_Tprt_Sensor_GetTptr();
+	//#endif
+
 	while(1)
 	{
 	

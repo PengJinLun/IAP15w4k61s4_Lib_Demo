@@ -1,6 +1,9 @@
 #include "common.h"
 #include "ctype.h"
 
+
+
+
 unsigned int simple_strtoul(const char *cp,char **endp,unsigned int base)
 {
 	unsigned long result = 0,value;

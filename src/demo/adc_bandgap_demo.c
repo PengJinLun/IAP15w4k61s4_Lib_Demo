@@ -87,11 +87,11 @@ void 	ADC_BandGap_demo(void)
 
 	while (1)
 	{
-		for(i=0; i<3; i++)
+	//	for(i=0; i<3; i++)
 		{
 			delay_ms(500);		//为了让发送的速度慢一点，延时250ms
 
-			if(i <3)	//ADC0~ADC2
+			//if(i <3)	//ADC0~ADC2
 			{
 				j = Get_ADC10bitResult(i);	//参数0~7,查询方式做一次ADC, 返回值就是结果, == 1024 为错误
 				TxSend('A');

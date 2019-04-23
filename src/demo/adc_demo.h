@@ -3,5 +3,5 @@
 
 void	ADC_config(void);
 void 	ADC_Demo(void);
-
+void 	ADC0_Demo(void);
 #endif
