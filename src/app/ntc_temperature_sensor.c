@@ -6,14 +6,16 @@
 #include "gpio.h"
 #include <math.h>
 #include <stdio.h>
-#include <string.h>
+
 
 /*************	本地常量声明	**************/
-const float	T2  = 273.15 + 25.0;
-const u16	RT	= 10000;	//NTC电阻25℃时阻值
-const u16	Bx  = 3950;		//B值
-const float Ka  = 273.15;	//开尔文
-const float Rup = 20000;	//上拉电阻	
+static const float	T2  = 273.15 + 25.0;
+static const u16	RT	= 10000;	//NTC电阻25℃时阻值
+static const u16	Bx  = 3950;		//B值
+static const float Ka  = 273.15;	//开尔文
+static const float Rup = 20000;		//上拉电阻
+static const float t_upper= 40;		//上限温度
+	
 /*************	本地变量声明	**************/
 static u16 Nref = 0;	//基准电压对应AD值
 static char buf[12] = {0};
@@ -38,12 +40,16 @@ static void	ADC0_Init(void)
 	ADC_PowerControl(ENABLE);							//单独的ADC电源操作函数, ENABLE或DISABLE
 }
 
-static void	LED_Init(void)
+static void	GPIO_Init(void)
 {
 	GPIO_InitTypeDef	GPIO_InitStructure;		//结构定义
 	GPIO_InitStructure.Pin  = GPIO_Pin_5 ;		//指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
 	GPIO_InitStructure.Mode = GPIO_OUT_PP;		//指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_OUT_PP
-	GPIO_Inilize(GPIO_P3,&GPIO_InitStructure);	//初始化
+	GPIO_Inilize(GPIO_P3,&GPIO_InitStructure);	//初始化 LED
+
+	GPIO_InitStructure.Pin  = GPIO_Pin_4 ;		//指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
+	GPIO_InitStructure.Mode = GPIO_OUT_PP;		//指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_OUT_PP
+	GPIO_Inilize(GPIO_P1,&GPIO_InitStructure);	//初始化 P1^4
 	
 }
 
@@ -54,7 +60,7 @@ static void	LED_Init(void)
 --------------------------------------*/
 void Ntc_Tprt_Sensor_Init(void)
 {
-	LED_Init();
+	GPIO_Init();
 	ADC0_Init();
 	Lcd_Init();
 		
@@ -86,16 +92,14 @@ void Ntc_Tprt_Sensor_Init(void)
 B=ln(RT1/ RT2)/(1/T1-1/T2)
 T1 = 1/(ln(RT1/ RT2)/B + 1/T2) - 273.15 + 0.5
 --------------------------------------*/
-void  Ntc_Tprt_Sensor_GetTptr(void)
+static float  Ntc_Tprt_Sensor_GetTptr(void)
 {
 	u16 tptr_value = 0;
 	float RT1 = 0;
 	float T1 = 0;
 
-	while(1){
-		delay_ms(500);
-		P35 = !P35;
-			
+	//while(1)
+	{	
 		//读ADC0电压
 		//Ux = Vref * Nx / Nref. Vref = 1250mV
 		tptr_value =  Get_ADC10bitResult(0);
@@ -111,9 +115,27 @@ void  Ntc_Tprt_Sensor_GetTptr(void)
 		//根据RT1计算对应温度T1
 		T1=((float)1.0/(log(RT1/10000)/Bx + (float)1.0/T2) - Ka + 0.5);
 
-		memset(buf,0,12);
 		sprintf(buf, "%.3f %s %d",T1, "℃" ,RT);
 		GUI_sprintf_hzstr16x(90,110,buf,Red,White); 		
 
 	}
+	return T1;
 }
+
+void Ntc_Tprt_Sensor_Demo(void)
+{
+	float t = 0;
+	while(1)
+	{
+		delay_ms(500);
+		P35 = !P35;	
+
+		t = Ntc_Tprt_Sensor_GetTptr();
+		if(t > t_upper)
+			P14 = 0;
+		else
+			P14 = 1;		
+	}
+
+}
+

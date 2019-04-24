@@ -26,6 +26,7 @@
 //#define PCA_PWM_SOFTTIME_CAPCTURE_DEMO_EN
 //#define GUI_DEMO
 //#define GUI_FONT_DEMO
-#define NTC_TPRT_SENSOR_EN
+#define TPRT_CTLR_EN
+//#define NTC_TPRT_SENSOR_EN
 
 #endif

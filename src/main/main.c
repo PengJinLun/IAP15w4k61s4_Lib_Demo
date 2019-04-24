@@ -75,12 +75,13 @@ int main(void)
 
 	#ifdef TPRT_CTLR_EN
     	Tprt_ctlr_Init();
+		Tprt_ctlr_Demo();
 	#endif
 
-	//#ifdef NTC_TPRT_SENSOR_EN
+	#ifdef NTC_TPRT_SENSOR_EN
 		Ntc_Tprt_Sensor_Init();
-		Ntc_Tprt_Sensor_GetTptr();
-	//#endif
+		Ntc_Tprt_Sensor_Demo();
+	#endif
 
 	while(1)
 	{
