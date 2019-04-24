@@ -91,8 +91,7 @@ static void set_temp(void)
 				}else{
 					PrintString1("ÃüÁî´íÎó\r\n");
 				}
-
-				
+	
 			}
 			else{
 				PrintString1("ÃüÁî´íÎó\r\n");
