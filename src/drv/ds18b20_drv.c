@@ -122,7 +122,7 @@ unsigned char read_byte(void)
 -	function: 读出温度函数
 -   output  : 温度值为short变量 有正负	
 ----------------------------------*/
-short Read_Temp(void)	  //short可以表示-32768~+32767
+float Read_Temp(void)	  //short可以表示-32768~+32767
 {
   unsigned char TL,TH;
   unsigned char temp;
