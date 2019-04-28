@@ -14,7 +14,7 @@ extern void time2_isr(void);
 /********************* Timer0中断函数************************/
 void timer0_int (void) interrupt TIMER0_VECTOR
 {
-	 DS18B20_time0_isr();
+	 //DS18B20_time0_isr();
 }
 
 /********************* Timer1中断函数************************/

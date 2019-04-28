@@ -14,6 +14,7 @@
 #include    "gui_demo.h"
 #include    "gui_font_demo.h"
 #include 	"ntc_temperature_sensor.h"
+#include 	"k_thermocouple.h"
 
 //#define LED_DEMO_EN
 //#define TIMER_DEMO_EN
@@ -26,7 +27,7 @@
 //#define PCA_PWM_SOFTTIME_CAPCTURE_DEMO_EN
 //#define GUI_DEMO
 //#define GUI_FONT_DEMO
-#define TPRT_CTLR_EN
+//#define TPRT_CTLR_EN
 //#define NTC_TPRT_SENSOR_EN
-
+#define K_THERMOCOUPLE_EN
 #endif

@@ -83,6 +83,11 @@ int main(void)
 		Ntc_Tprt_Sensor_Demo();
 	#endif
 
+	#ifdef K_THERMOCOUPLE_EN
+		K_thermocouple_Init();
+		K_thermocouple_Demo();
+	#endif
+
 	while(1)
 	{
 	
