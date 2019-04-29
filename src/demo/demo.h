@@ -28,6 +28,6 @@
 //#define GUI_DEMO
 //#define GUI_FONT_DEMO
 //#define TPRT_CTLR_EN
-//#define NTC_TPRT_SENSOR_EN
-#define K_THERMOCOUPLE_EN
+#define NTC_TPRT_SENSOR_EN
+//#define K_THERMOCOUPLE_EN
 #endif

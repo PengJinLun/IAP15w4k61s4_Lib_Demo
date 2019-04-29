@@ -10,16 +10,16 @@
 
 /*************	本地常量声明	**************/
 static const float	T2  = 273.15 + 25.0;
-static const u16	RT	= 10000;	//NTC电阻25℃时阻值
+static const unsigned int	RT	= 100000;	//NTC电阻25℃时阻值
 static const u16	Bx  = 3950;		//B值
 static const float Ka  = 273.15;	//开尔文
-static const float Rup = 20000;		//上拉电阻
+static const unsigned int   Rup = 100000;		//上拉电阻
 static const float t_upper= 40;		//上限温度
 	
 /*************	本地变量声明	**************/
 static u16 Nref = 0;	//基准电压对应AD值
 static char buf[12] = {0};
-static  int	vcc = 5000 ;			//上拉电压
+static  int	vcc = 4500 ;			//上拉电压
 
 /*************	本地函数声明	**************/
 
@@ -82,7 +82,7 @@ void Ntc_Tprt_Sensor_Init(void)
 	GUI_sprintf_hzstr16x(90,30,buf,Red,White);
 	
 	//通过基准电压计算出输入电压
-//	vcc = (u32)1250 * (u32)vcc / Nref ;
+	//vcc = (u32)1250 * 1024 / Nref ;
 	sprintf(buf, "vcc： %d", vcc);	 	
 	GUI_sprintf_hzstr16x(10,50,buf,Red,White);
 }
@@ -108,12 +108,12 @@ static float  Ntc_Tprt_Sensor_GetTptr(void)
 		GUI_sprintf_hzstr16x(90,70,buf,Red,White);
 
 		//计算出NTC阻值
-		RT1 = (float)tptr_value / ((float)(vcc - tptr_value)/Rup);
+		RT1 = (float)tptr_value / ((float)(vcc - tptr_value)/10000);
 		sprintf(buf, "%.3fR", RT1);		
 		GUI_sprintf_hzstr16x(90,90,buf,Red,White);
 		
 		//根据RT1计算对应温度T1
-		T1=((float)1.0/(log(RT1/10000)/Bx + (float)1.0/T2) - Ka + 0.5);
+		T1=((float)1.0/(log((float)RT1/10000)/3470 + (float)1.0/298.15) - Ka + 0.5);
 
 		sprintf(buf, "%.3f %s %d",T1, "℃" ,RT);
 		GUI_sprintf_hzstr16x(90,110,buf,Red,White); 		
